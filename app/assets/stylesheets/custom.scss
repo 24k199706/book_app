@@ -1,0 +1,45 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+body {
+    padding-top: 60px;
+}
+
+section {
+    overflow: auto;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.center {
+    text-align: center;
+
+    h1 {
+    margin-bottom: 10px;
+    }
+}
+footer {
+    margin-top: 45px;
+    padding-top: 5px;
+    border-top: 1px solid #eaeaea;
+    color: #777;
+    a{
+        color: #555;
+    }
+    a:hover {
+        color: #222;
+    }
+    small {
+        float: left;
+    }
+    ul{
+        float: right;
+        list-style: none;
+    }
+    ul li {
+        float: left;
+        margin-left: 15px;
+    }
+}  
