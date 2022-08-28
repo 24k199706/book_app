@@ -5,15 +5,16 @@ class LoginsController < ApplicationController
 
   def create
     user=User.find_by(email:params[:login][:email].downcase)
-    if user&&userauthenticate(params[:login][:password])
+    if user&&user.authenticate(params[:login][:password])
       log_in user
       redirect_to root_path
     else
       render "new"
+    end
   end
 
   def destroy
     log_out
-    redirect_to rooth_path
+    redirect_to root_path
   end
 end

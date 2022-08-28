@@ -1,5 +1,34 @@
+<% if logged_in? %>
+<div class="d-flex flex-column p-3 bg-light" style="width: 280px;">
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+      <% @categories.each do |q| %>
+        <%= link_to "#{q.category}", "categories/#{q.id}" %>
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use>
+          </svg>
+        <% end %>
+      </li>
+    <main class="container">
+        <div class="starter-template text-center py-5 px-3">
+            <%= link_to post.user.name ,users_show_path(post.user.id) %>
+                                <td>
+            <h3><%= link_to post.title , posts_show_path(post) %></h3>
+                <% if post.image.url %>
+                    <%= image_tag post.image.url , :size =>"320x240" %>
+                    <%=  post.content %>
+                <% else %>
+                    <svg class="bd-placeholder-img card-img-top" width="50%" height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                    <%=  post.content %>
+                <% end %>
+                <small class="text-muted"><%=post.created_at.in_time_zone('Tokyo').strftime("%Y年%-m月%-d日 %-H時%-M分") %></small>
+                </div>
+            </main>
+        </div>
+    </main>
+</div>
+<% else %>
 <h1>Books#home</h1>
 <p>Find me in app/views/books/home.html.erb</p>
-<%= link_to "Sing_UP_Now","#",class: "btn btn-lg btn-primary" %>
-<%if logged_in %>
-<h2>ログイン後の画面</h2>
+<%= link_to "Sing_UP_Now",users_new_path ,class: "btn btn-lg btn-primary" %>
+<% end %>

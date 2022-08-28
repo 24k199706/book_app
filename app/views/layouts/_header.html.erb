@@ -1,12 +1,20 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
+<header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 mb-2 calor text-dark border-bottom shadow-sm">
     <div class="container">
-        <%= link_to "Book app", '#', id: "logo" %>
+        <%= link_to "Book app", root_path, id: "logo" %>
+        <% if logged_in? %>
+            <ul class="nav navbar-nav navbar-right">
+                <li><%= link_to "新規投稿", posts_new_path %></li>
+                <li><%= link_to "Profile", users_show_path(current_user) %></li>
+                <li><%= link_to "Log out", logout_path, method: :delete %></li>
+            </ul>
+        <% else %>
         <nav>
-        <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to "Home",   '#' %></li>
-            <li><%= link_to "Help",   '#' %></li>
-            <li><%= link_to "Log in", '#' %></li>
-        </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><%= link_to "Home",   '#' %></li>
+                <li><%= link_to "Help",   '#' %></li>
+                <li><%= link_to "Log in", login_new_path %></li>
+            </ul>
         </nav>
+        <% end %>
     </div>
 </header>

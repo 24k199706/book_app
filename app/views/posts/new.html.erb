@@ -1,0 +1,30 @@
+<H1>新規投稿画面</H1>
+<main class="container">
+    <div class="starter-template text-center py-5 px-3">
+        <%= form_for(@post, url:posts_create_path) do |f| %>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label" >投稿画像</label>
+                <%= f.file_field :image %><br>
+            </div>
+            <label>カテゴリ<span class="badge badge-danger">必須</span></label>
+            <select class="form-control" name="category[category]">
+                <% @categories.each do |q| %>
+                <option value="<%= q.id %>"><%= q.category %></option>
+                <input type="hidden" name="Post[Category_id]" value="<%=q.id %>">
+                <% end %>
+            </select>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">タイトル<span class="badge badge-danger">必須</span></label>
+                <textarea  id="text" placeholder="タイトルを入れてね" class="form-control" id="title" name="post[title]"></textarea><br>            
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">本文<span class="badge badge-danger">必須</span></label>
+                <textarea id="text1" placeholder="ここに何か入力してね" class="form-control exampleFormControlTextarea1" name="post[content]"  rows="20"></textarea>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <input type="submit"  name="commit" value="新規投稿" class="btn btn-primary" data-disable-with="新規投稿" disable onclick=jscheack() >
+            </div>
+            
+        <% end %>
+    </div>
+</main>
