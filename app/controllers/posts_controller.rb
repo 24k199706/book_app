@@ -1,30 +1,32 @@
 class PostsController < ApplicationController
+  before_action :logged_in?, only: [:create] 
   def new
     @post=Post.new
-    @categories=Category.all
+    @categories =Category.all
   end
 
   def create
     @post=current_user.posts.build(posts_params)
-    @category = Post.category.find_by(id: params[:id])
     if @post.save
       redirect_to root_path
-    end
+    else
       render "new"
+    end
   end
 
   def show
-    @post=Post.find(params[:id])
+    @post=Post.find_by(id: params[:id])
   end
 
   def destroy
-    @post.delete_flg=true
+    @post=Post.find_by(id: params[:id])
+    @post.delete_flg= true
     @post.save
     redirect_to root_path
   end
 
   private
     def posts_params
-      params.require(:post).permit(:title, :user_id,:category_id,:content,:image)
+      params.require(:post).permit(:title,:content,:image,category_ids:[])
     end
 end

@@ -1,2 +1,16 @@
-<h1>Posts#show</h1>
-<p>Find me in app/views/posts/show.html.erb</p>
+<main class="container">
+    <div class="starter-template  py-5 px-3">
+        <h3><%= @post.title %></h3>
+        <td>
+        <% if current_user.id == @post.user_id %>
+            <%= link_to "delete", posts_destroy_path(@post), method: :delete,
+                                       data: { confirm: "本当に投稿を削除しますか？" } %>
+        <% end %><br>
+        </td>
+        <%if @post.image %>
+            <%= image_tag @post.image.url , :size =>"320x240" %>
+        <% else %>
+            <svg class="bd-placeholder-img card-img-top" width="50%" height="100" xmlns="http://www.w3.org/2000/svg" role="img" 
+            aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="50%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+        <% end %>
+        <%= @post.content%>

@@ -4,28 +4,43 @@
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
       <% @categories.each do |q| %>
-        <%= link_to "#{q.category}", "categories/#{q.id}" %>
+        <%= link_to "#{q.category}", categories_path(q.id) %>
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use>
           </svg>
         <% end %>
       </li>
-    <main class="container">
-        <div class="starter-template text-center py-5 px-3">
-            <%= link_to post.user.name ,users_show_path(post.user.id) %>
-                                <td>
-            <h3><%= link_to post.title , posts_show_path(post) %></h3>
-                <% if post.image.url %>
+      <main class="container">
+            <div class="starter-template text-center py-5 px-3">
+              <% @post.each do |post| %>
+                <% if post.image %>
                     <%= image_tag post.image.url , :size =>"320x240" %>
+                    <%= link_to post.user.name ,users_show_path(post.user.id) %>
+                    <h3><%= link_to post.title , posts_show_path(post) %></h3>
                     <%=  post.content %>
+                     <small class="text-muted"><%=post.created_at.in_time_zone('Tokyo').strftime("%Y年%-m月%-d日 %-H時%-M分") %></small>
                 <% else %>
                     <svg class="bd-placeholder-img card-img-top" width="50%" height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                    <%= link_to post.user.name ,users_show_path(post.user.id) %>
+                    <h3><%= link_to post.title , posts_show_path(post) %></h3>
                     <%=  post.content %>
+                    <span>【カテゴリ】</span>
+                  <% post.categories.each do |single| %>
+                    <%= single.category %>
+                  <%end%>
+                    <% if current_user.liked_by?(post.id) %>
+                      <i class="fa fa-heart unlike-btn">
+                        <%= link_to 'スキを外す', like_destroy_path(post), class: "like-link", method: :DELETE %> 
+                      </i>
+                    <% else %>
+                      <i class="fa fa-heart like-btn">
+                        <%= link_to 'スキ', like_create_path(post), method: :POST %>
+                      </i>
+                    <% end %> 
+                    <small class="text-muted"><%=post.created_at.in_time_zone('Tokyo').strftime("%Y年%-m月%-d日 %-H時%-M分") %></small>
                 <% end %>
-                <small class="text-muted"><%=post.created_at.in_time_zone('Tokyo').strftime("%Y年%-m月%-d日 %-H時%-M分") %></small>
-                </div>
-            </main>
-        </div>
-    </main>
+              <% end %>
+            </div>
+          </main>
 </div>
 <% else %>
 <h1>Books#home</h1>

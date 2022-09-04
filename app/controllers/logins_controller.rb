@@ -5,11 +5,15 @@ class LoginsController < ApplicationController
 
   def create
     user=User.find_by(email:params[:login][:email].downcase)
-    if user&&user.authenticate(params[:login][:password])
-      log_in user
-      redirect_to root_path
+    if user.resign!=true
+      if user&&user.authenticate(params[:login][:password])
+        log_in user
+        redirect_to root_path
+      else
+        render "new"
+      end
     else
-      render "new"
+      redirect_to renew_path
     end
   end
 

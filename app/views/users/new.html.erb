@@ -15,7 +15,16 @@
 
         <%= f.label :password_confirmation, "Confirmation" %>
         <%= f.password_field :password_confirmation %>
-
+        <label>秘密の質問<span class="badge badge-danger">必須</span></label>
+          <select class="form-control" name="user[reset_question]">
+        <% Password_Question.all.each do |q| %>
+            <option value="<%= q.id %>"><%= q.name %></option>
+        <% end %>
+        </select>
+        <div class="mb-3">
+          <label>秘密の答え<span class="badge badge-danger">必須</span></label>
+          <input type="text" class="form-control" name="user[reset_answer]" >
+        </div>
         <%= f.submit "Create my account", class: "btn btn-primary" %>
     <% end %>
     </div>

@@ -6,6 +6,7 @@
                 <li><%= link_to "新規投稿", posts_new_path %></li>
                 <li><%= link_to "Profile", users_show_path(current_user) %></li>
                 <li><%= link_to "Log out", logout_path, method: :delete %></li>
+                <li><%= link_to "退会", users_resign_path(current_user), method: :delete %></li>
             </ul>
         <% else %>
         <nav>
